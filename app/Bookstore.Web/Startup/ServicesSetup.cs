@@ -18,6 +18,18 @@ namespace Bookstore.Web.Startup
 {
     public static class ServicesSetup
     {
+        // Single composition-root entry point: everything the application registers is
+        // reachable from this one call in Program.cs.
+        public static WebApplicationBuilder AddApplicationServices(this WebApplicationBuilder builder)
+        {
+            builder.ConfigureConfiguration();
+            builder.ConfigureServices();
+            builder.ConfigureAuthentication();
+            builder.ConfigureDependencyInjection();
+
+            return builder;
+        }
+
         public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
         {
             builder.Services.AddControllersWithViews(x =>
